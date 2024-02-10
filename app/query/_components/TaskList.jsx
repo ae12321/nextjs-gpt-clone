@@ -1,14 +1,7 @@
 import React from "react";
-import prisma from "../../../utils/db";
 import Link from "next/link";
 
-const getTasks = async () => {
-  return prisma.task.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
-};
+import { getTasks } from "../_utils/actions";
 
 export default async function TaskList() {
   const tasks = await getTasks();
