@@ -1,5 +1,7 @@
 import Link from "next/link";
 import React from "react";
+import localDrinkImage from "./drink.jpg";
+import Image from "next/image";
 
 const url = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=";
 
@@ -20,7 +22,6 @@ const fetchDrink = async (id) => {
 //
 export default async function DrinkPage({ params }) {
   const data = await fetchDrink(params.id);
-  console.log(data);
   return (
     <div>
       <Link href={"/server"} className="btn btn-primary">
@@ -30,6 +31,9 @@ export default async function DrinkPage({ params }) {
       <p>{data.id}</p>
       <p>{data.name}</p>
       <p>{data.thumbnail}</p>
+
+      {/* <img src={localDrinkImage.src} alt="" /> */}
+      <Image src={localDrinkImage.src} width={400} height={400} alt="" />
     </div>
   );
 }
