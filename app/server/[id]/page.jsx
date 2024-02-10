@@ -33,7 +33,14 @@ export default async function DrinkPage({ params }) {
       <p>{data.thumbnail}</p>
 
       {/* <img src={localDrinkImage.src} alt="" /> */}
-      <Image src={localDrinkImage.src} width={400} height={400} alt="" />
+      {/* <Image src={localDrinkImage.src} width={400} height={400} alt="" /> */}
+      <Image
+        src={data.thumbnail}
+        width={200}
+        height={200}
+        className=" rounded-lg"
+        alt={data.name}
+      />
     </div>
   );
 }
