@@ -3,6 +3,8 @@ import React from "react";
 import TaskAddFormVer2 from "./_components/TaskAddFormVer2";
 import TaskList from "./_components/TaskList";
 
+export const dynamic = "force-dynamic";
+
 export default async function QueryPage() {
   return (
     <div>
