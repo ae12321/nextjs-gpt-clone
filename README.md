@@ -21,6 +21,13 @@ npm install --save-dev @types/react-dom
 npm install zod
 npm install react-hot-toast
 
+# register db hosting service, push schema
+npx prisma db push
+# show data on hosting service
+npx prisma studio
+
+
+
 ```
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
