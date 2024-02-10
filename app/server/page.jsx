@@ -1,4 +1,4 @@
-import DrinkList from "@/components/DrinkList";
+import DrinkList from "../../components/DrinkList";
 import React from "react";
 
 // api sample: https://www.thecocktaildb.com/api.php

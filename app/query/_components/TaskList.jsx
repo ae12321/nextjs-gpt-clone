@@ -1,6 +1,9 @@
 import React from "react";
 import Link from "next/link";
 
+import DeleteForm from "./DeleteForm";
+import EditForm from "./EditForm";
+
 import { getTasks } from "../_utils/actions";
 
 export default async function TaskList() {
@@ -32,12 +35,8 @@ export default async function TaskList() {
           >
             {task.content}
             <div className="flex gap-4">
-              <Link href={`/query/${task.id}`} className="btn btn-info btn-sm">
-                edit
-              </Link>
-              <Link href={""} className="btn btn-secondary btn-sm">
-                delete
-              </Link>
+              <EditForm id={task.id} />
+              <DeleteForm id={task.id} />
             </div>
           </div>
         );
