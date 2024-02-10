@@ -10,7 +10,6 @@ import toast from "react-hot-toast";
 // 分離は必要
 const AddButton = () => {
   const { pending } = useFormStatus();
-  console.log({ pending });
   return (
     <button type="submit" className="btn btn-primary join-item" disabled={pending}>
       {pending ? "Adding..." : "Add"}

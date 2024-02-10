@@ -1,0 +1,18 @@
+
+@baseUrl = http://localhost:3000
+
+###
+# @name get
+
+GET {{baseUrl}}/api/tasks
+
+###
+
+POST {{baseUrl}}/api/tasks
+
+{
+    "content": "Task 1",
+    "description": "Task 1 description"
+}
+
+###
