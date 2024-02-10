@@ -1,10 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 // import { addTask } from "../_utils/actions";
 import { addTaskCustom } from "../_utils/actions";
 
-import { useFormStatus } from "react-dom";
+import { useFormStatus, useFormState } from "react-dom";
+import toast from "react-hot-toast";
 
 // 分離は必要
 const AddButton = () => {
@@ -17,12 +18,27 @@ const AddButton = () => {
   );
 };
 
+const initialState = {
+  message: null,
+};
+
 export default function TaskAddForm() {
-  const { pending } = useFormStatus();
-  console.log(pending);
+  const [state, formAction] = useFormState(addTaskCustom, initialState);
+
+  useEffect(() => {
+    if (state.message === "error") {
+      toast.error("adding error...");
+      return;
+    }
+    if (state.message === "success") {
+      toast.success("add success!!!");
+      return;
+    }
+  }, [state]);
 
   return (
-    <form action={addTaskCustom} className="mt-8">
+    <form action={formAction} className="mt-8">
+      {/* {state.message && <div className="">{state.message}</div>} */}
       <div className="w-[500px] join">
         <input
           type="text"

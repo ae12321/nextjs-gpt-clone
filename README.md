@@ -16,6 +16,11 @@ npx prisma migrate dev --name "task model"
 npx prisma migrate dev --name "fix task model"
 npx prisma studio
 
+# for useFormState, useFormStatus, check body, show toast
+npm install --save-dev @types/react-dom
+npm install zod
+npm install react-hot-toast
+
 ```
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
