@@ -6,6 +6,11 @@ npx create-react-app@latest
 
 npm install --save-dev daisyui@latest
 npm install @tailwindcss/typography
+
+npm install --save-dev prisma
+npm install @prisma/client
+npx prisma init
+
 ```
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
