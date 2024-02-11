@@ -1,5 +1,6 @@
 "use client";
 
+import Chat from "@/components/Chat";
 import toast from "react-hot-toast";
 
 export default function ChatPage() {
@@ -10,10 +11,13 @@ export default function ChatPage() {
   };
   return (
     <div>
-      <h2>ChatPage</h2>
-      <button className="btn btn-primary" onClick={showToast}>
-        show
-      </button>
+      <Chat />
+      <div className="" style={{ display: "none" }}>
+        <h2>ChatPage</h2>
+        <button className="btn btn-primary" onClick={showToast}>
+          show
+        </button>
+      </div>
     </div>
   );
 }
