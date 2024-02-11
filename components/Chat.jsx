@@ -1,21 +1,37 @@
 "use client";
 
+import { generateChatResponse } from "@/app/(dashboard)/chat/_action/action";
+import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function Chat() {
   const [inputText, setInputText] = useState("");
-  const [messages, setMessages] = useState([
-    { text: "hello", user: "user1" },
-    { text: "hello!", user: "robot" },
-    { text: "how are you ", user: "user1" },
-    { text: "im fine!", user: "robot" },
-  ]);
+  const [chatMessages, setChatMessages] = useState([]);
+
+  const { mutate } = useMutation({
+    mutationFn: (nextMessage) =>
+      generateChatResponse([...chatMessages, nextMessage]),
+    onSuccess: (data) => {
+      if (!data) {
+        toast.error("error...");
+        return;
+      }
+      setChatMessages((prev) => [...prev, data]);
+    },
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e);
-    console.log({ inputText, messages });
+    // console.log({ inputText, chatMessages });
+    console.log({ inputText, chatMessages });
+    const nextMessage = { role: "user", content: inputText };
+    mutate(nextMessage);
+    setChatMessages((prev) => [...prev, nextMessage]);
+    setInputText("");
   };
+
+  console.log(chatMessages);
 
   return (
     <>
@@ -23,11 +39,10 @@ export default function Chat() {
       <div className="h-[calc(100vh-6rem)] grid grid-rows-[1fr,auto]">
         {/* messages area */}
         <div>
-          {messages.map((message, index) => {
+          {chatMessages.map((message, index) => {
             return (
               <div key={index} className="flex gap-4">
-                <p>{message.text}</p>
-                <p>{message.user}</p>
+                <p>{JSON.stringify(message)}</p>
               </div>
             );
           })}
