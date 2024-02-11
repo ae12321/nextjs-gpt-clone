@@ -1,6 +1,9 @@
+import { UserProfile } from "@clerk/nextjs";
 
 export default function ProfilePage() {
   return (
-    <div>ProfilePage</div>
-  )
+    <div>
+      <UserProfile />
+    </div>
+  );
 }
