@@ -4,12 +4,14 @@ import { generateChatResponse } from "@/app/(dashboard)/chat/_action/action";
 import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { FaUser } from "react-icons/fa";
+import { RiRobot2Line, RiUser2Line } from "react-icons/ri";
 
 export default function Chat() {
   const [inputText, setInputText] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: (nextMessage) =>
       generateChatResponse([...chatMessages, nextMessage]),
     onSuccess: (data) => {
@@ -36,16 +38,36 @@ export default function Chat() {
   return (
     <>
       {/* layout.jsのpy-12 */}
-      <div className="h-[calc(100vh-6rem)] grid grid-rows-[1fr,auto]">
+      <div className="max-h-[calc(100vh-6rem)] grid grid-rows-[1fr,auto]">
         {/* messages area */}
         <div>
-          {chatMessages.map((message, index) => {
+          {chatMessages.map(({ role, content }, index) => {
+            const state =
+              role === "user"
+                ? {
+                    place: "chat-end",
+                    icon: <RiUser2Line className="w-8 h-8" />,
+                  }
+                : {
+                    place: "chat-start",
+                    icon: <RiRobot2Line className="w-8 h-8" />,
+                  };
+            console.log(state);
             return (
-              <div key={index} className="flex gap-4">
-                <p>{JSON.stringify(message)}</p>
+              <div key={index} className={`chat ${state.place}`}>
+                <div class="chat-image avatar">
+                  <div class="w-10 rounded-full">{state.icon}</div>
+                </div>
+                <div class="chat-bubble">{content}</div>
               </div>
             );
           })}
+          {isPending && (
+            <div>
+              <span className="loading"></span>
+              <span>回答中...</span>
+            </div>
+          )}
         </div>
 
         {/* question area */}
@@ -60,8 +82,12 @@ export default function Chat() {
               name="text"
               onChange={(e) => setInputText(e.target.value)}
             />
-            <button type="submit" className="btn btn-primary join-item">
-              question
+            <button
+              type="submit"
+              className="btn btn-primary join-item"
+              disabled={isPending}
+            >
+              {isPending ? "処理中..." : "question"}
             </button>
           </div>
         </form>
