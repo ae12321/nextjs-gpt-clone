@@ -1,6 +1,12 @@
 "use client";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import {
   createNewRecipe,
@@ -8,9 +14,22 @@ import {
   getExistingRecipe,
 } from "@/utils/actions";
 import RecipeCard from "@/components/recipe/RecipeCard";
+import RecipeInfo from "@/components/recipe/RecipeInfo";
 
-export default function RecipePage() {
-  const queryClient = useQueryClient();
+export default function NewRecipePage() {
+  const queryClient = new QueryClient();
+
+  return (
+    <>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <Main />
+      </HydrationBoundary>
+    </>
+  );
+}
+
+function Main() {
+  // const queryClient = new QueryClient();
 
   const { mutate, isPending, data } = useMutation({
     mutationFn: async ({ food1, food2 }) => {
@@ -22,7 +41,7 @@ export default function RecipePage() {
       if (recipeData) {
         await createNewRecipe(recipeData);
         // revalidate
-        queryClient.invalidateQueries({ queryKey: ["recipe"] });
+        // queryClient.invalidateQueries({ queryKey: ["recipe"] });
         return recipeData;
       }
       // on error
@@ -36,15 +55,15 @@ export default function RecipePage() {
     e.preventDefault();
     // formからデータを取得する方法
     const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries());
-    mutate(data);
+    const obj = Object.fromEntries(formData.entries());
+    mutate(obj);
   };
 
   if (isPending) {
     return <span className="loading loading-lg"></span>;
   }
 
-  console.log({ data, isPending });
+  console.log(data);
 
   return (
     <>
@@ -71,14 +90,14 @@ export default function RecipePage() {
             </button>
           </div>
         </form>
-        <div>{JSON.stringify(data, null, 2)}</div>
-        <div className="grid grid-cols-2">
-          <RecipeCard
-            recipe={{ id: 111, title: "ham egg", food1: "ham", food2: "egg" }}
-          />
-          <RecipeCard
-            recipe={{ id: 111, title: "ham egg", food1: "ham", food2: "egg" }}
-          />
+
+        {/* show generated recipe */}
+        <div>
+          {data && <RecipeInfo data={data} />}
+          {/* data */}
+          {/* data */}
+          {/* data */}
+          {/* data */}
         </div>
       </div>
     </>

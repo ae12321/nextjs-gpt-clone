@@ -25,14 +25,14 @@ export default function Chat() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // console.log({ inputText, chatMessages });
-    console.log({ inputText, chatMessages });
+    // console.log({ inputText, chatMessages });
     const nextMessage = { role: "user", content: inputText };
     mutate(nextMessage);
     setChatMessages((prev) => [...prev, nextMessage]);
     setInputText("");
   };
 
-  console.log(chatMessages);
+  // console.log(chatMessages);
 
   return (
     <>
@@ -51,7 +51,7 @@ export default function Chat() {
                     place: "chat-start",
                     icon: <RiRobot2Line className="w-8 h-8" />,
                   };
-            console.log(state);
+            // console.log(state);
             return (
               <div key={index} className={`chat ${state.place}`}>
                 <div className="chat-image avatar">
