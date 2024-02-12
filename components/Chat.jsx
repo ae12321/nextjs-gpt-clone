@@ -1,10 +1,9 @@
 "use client";
 
-import { generateChatResponse } from "@/app/(dashboard)/chat/_action/action";
+import { generateChatResponse } from "@/app/(dashboard)/_action/action";
 import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { FaUser } from "react-icons/fa";
 import { RiRobot2Line, RiUser2Line } from "react-icons/ri";
 
 export default function Chat() {
