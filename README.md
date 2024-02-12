@@ -1,16 +1,19 @@
 # memo
 
 ```
-npm install @clerk/nextjs @prisma/client 
+npm install @clerk/nextjs @prisma/client
 
 
 
-npm install @clerk/nextjs 
+npm install @clerk/nextjs
 npm install axios @tanstack/react-query @tanstack/react-query-devtools
 npm install openai react-hot-toast react-icons
 npm install @prisma/client
 npm install --save-dev prisma
 npm install --save-dev @tailwindcss/typography daisyui
+
+npx prisma init
+npx prisma migrate dev
 ```
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
