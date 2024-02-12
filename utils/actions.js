@@ -81,3 +81,23 @@ export const createNewRecipe = async (recipeData) => {
     },
   });
 };
+
+export const getRecipes = async (word) => {
+  // with no filter
+  if (!word) {
+    return prisma.recipe.findMany({
+      orderBy: [{ food1: "asc" }, { food2: "asc" }, { createdAt: "desc" }],
+    });
+  }
+  return prisma.recipe.findMany({
+    where: {
+      OR: [
+        { food1: { contains: word } },
+        { food2: { contains: word } },
+        { title: { contains: word } },
+        { description: { contains: word } },
+      ],
+    },
+    orderBy: [{ food1: "asc" }, { food2: "asc" }, { createdAt: "desc" }],
+  });
+};

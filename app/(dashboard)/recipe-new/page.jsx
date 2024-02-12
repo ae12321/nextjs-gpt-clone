@@ -7,6 +7,7 @@ import {
   generateRecipeResponse,
   getExistingRecipe,
 } from "@/utils/actions";
+import RecipeCard from "@/components/recipe/RecipeCard";
 
 export default function RecipePage() {
   const queryClient = useQueryClient();
@@ -43,7 +44,7 @@ export default function RecipePage() {
     return <span className="loading loading-lg"></span>;
   }
 
-  console.log(data);
+  console.log({ data, isPending });
 
   return (
     <>
@@ -71,13 +72,13 @@ export default function RecipePage() {
           </div>
         </form>
         <div>{JSON.stringify(data, null, 2)}</div>
-        <div>
-          <ul>
-            <li>adsf</li>
-            <li>adsf</li>
-            <li>adsf</li>
-            <li>adsf</li>
-          </ul>
+        <div className="grid grid-cols-2">
+          <RecipeCard
+            recipe={{ id: 111, title: "ham egg", food1: "ham", food2: "egg" }}
+          />
+          <RecipeCard
+            recipe={{ id: 111, title: "ham egg", food1: "ham", food2: "egg" }}
+          />
         </div>
       </div>
     </>

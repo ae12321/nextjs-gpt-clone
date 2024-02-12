@@ -3,8 +3,8 @@ import React from "react";
 
 const links = [
   { href: "/chat", label: "chat" },
-  { href: "/recipe", label: "recipe" },
-  { href: "/xxx/yyy", label: "yyy" },
+  { href: "/recipes", label: "recipes" },
+  { href: "/recipe-new", label: "new recipe" },
   { href: "/profile", label: "profile" },
 ];
 
