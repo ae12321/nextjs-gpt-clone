@@ -5,7 +5,7 @@ export default function RecipeCard({ recipe }) {
   const { id, food1, food2 } = recipe;
   return (
     <Link
-      href={`/recipe/${id}`}
+      href={`/recipes/${id}`}
       className="card card-compact rounded-xl bg-blue-200"
     >
       <div className="card-body items-center">

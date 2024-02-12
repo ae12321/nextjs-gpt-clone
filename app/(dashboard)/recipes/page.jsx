@@ -1,38 +1,23 @@
-"use client";
-
-import RecipeList from "@/components/recipe/RecipeList";
-import { getRecipes } from "@/utils/actions";
+import RecipesPage from "@/components/recipe/RecipesPage";
 import {
   HydrationBoundary,
   QueryClient,
   dehydrate,
-  useQuery,
 } from "@tanstack/react-query";
-import React from "react";
 
-export default function RecipesPage() {
+export default async function RecipesRootPage() {
   const queryClient = new QueryClient();
-  return (
-    <>
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <Main />
-      </HydrationBoundary>
-    </>
-  );
-}
 
-function Main() {
-  const { data, isPending } = useQuery({
-    queryKey: ["recipe"],
+  await queryClient.prefetchQuery({
+    queryKey: ["recipe", ""],
     queryFn: () => getRecipes(),
   });
 
-  if (isPending) return <span className="loading loading-lg"></span>;
-
   return (
-    <div>
-      <RecipeList data={data} />
-      {/* <p>{JSON.stringify(data)}</p> */}
-    </div>
+    <>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <RecipesPage />
+      </HydrationBoundary>
+    </>
   );
 }

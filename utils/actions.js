@@ -101,3 +101,9 @@ export const getRecipes = async (word) => {
     orderBy: [{ food1: "asc" }, { food2: "asc" }, { createdAt: "desc" }],
   });
 };
+
+export const getSingleRecipe = async (id /** @type string */) => {
+  return prisma.recipe.findUnique({
+    where: { id },
+  });
+};

@@ -29,7 +29,7 @@ export default function NewRecipePage() {
 }
 
 function Main() {
-  // const queryClient = new QueryClient();
+  const queryClient = new QueryClient();
 
   const { mutate, isPending, data } = useMutation({
     mutationFn: async ({ food1, food2 }) => {
@@ -41,7 +41,7 @@ function Main() {
       if (recipeData) {
         await createNewRecipe(recipeData);
         // revalidate
-        // queryClient.invalidateQueries({ queryKey: ["recipe"] });
+        queryClient.invalidateQueries({ queryKey: ["recipe"] });
         return recipeData;
       }
       // on error
@@ -62,8 +62,7 @@ function Main() {
   if (isPending) {
     return <span className="loading loading-lg"></span>;
   }
-
-  console.log(data);
+  // console.log(data);
 
   return (
     <>
