@@ -18,6 +18,7 @@ model Recipe {
   food2 String
   title String
   description String
+  steps String
   image String?
   // description String @db.Text
   // image String? @db.Text

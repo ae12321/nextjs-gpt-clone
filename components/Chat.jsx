@@ -1,6 +1,6 @@
 "use client";
 
-import { generateChatResponse } from "@/app/(dashboard)/_action/action";
+import { generateChatResponse } from "@/utils/actions";
 import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
@@ -54,10 +54,10 @@ export default function Chat() {
             console.log(state);
             return (
               <div key={index} className={`chat ${state.place}`}>
-                <div class="chat-image avatar">
-                  <div class="w-10 rounded-full">{state.icon}</div>
+                <div className="chat-image avatar">
+                  <div className="w-10 rounded-full">{state.icon}</div>
                 </div>
-                <div class="chat-bubble">{content}</div>
+                <div className="chat-bubble">{content}</div>
               </div>
             );
           })}

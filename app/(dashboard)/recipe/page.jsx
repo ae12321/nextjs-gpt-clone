@@ -1,16 +1,30 @@
 "use client";
 
-import { useMutation } from "@tanstack/react-query";
-import { generateRecipeContext } from "../_action/prompt";
-import { generateRecipeResponse } from "../_action/action";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import {
+  createNewRecipe,
+  generateRecipeResponse,
+  getExistingRecipe,
+} from "@/utils/actions";
 
 export default function RecipePage() {
-  //
+  const queryClient = useQueryClient();
+
   const { mutate, isPending, data } = useMutation({
     mutationFn: async ({ food1, food2 }) => {
+      // check existing data in table, before send to openai
+      const existingRecipe = await getExistingRecipe({ food1, food2 }); // existingRecipe or null
+      if (existingRecipe) return existingRecipe;
+      // generate recipe data
       const recipeData = await generateRecipeResponse({ food1, food2 });
-      if (recipeData) return recipeData;
+      if (recipeData) {
+        await createNewRecipe(recipeData);
+        // revalidate
+        queryClient.invalidateQueries({ queryKey: ["recipe"] });
+        return recipeData;
+      }
+      // on error
       toast.error("no match recipe data...");
       return null;
     },
@@ -56,7 +70,7 @@ export default function RecipePage() {
             </button>
           </div>
         </form>
-        <div>{}</div>
+        <div>{JSON.stringify(data, null, 2)}</div>
         <div>
           <ul>
             <li>adsf</li>
